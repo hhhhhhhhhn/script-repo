@@ -1,0 +1,14 @@
+# Eval
+
+Write expression: {{text:expr:2 + 2}}
+
+{{run:run:Evaluate!}}
+
+{{outmd:output}}
+
+Other debug pages [here](?debug)
+
+{{{{
+function run({expr = ""}, ret){
+	ret(eval(expr))
+}

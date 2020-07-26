@@ -1,0 +1,54 @@
+# Word Generator
+
+Curpus (can be any text, the longer the better):
+
+{{text:curpus:This example text is way too small!}}
+
+Memory (Less memory makes the words closer to the curpus'. A value from 0 to 3 
+is recommended): 
+
+{{shorttext:rand:1}}
+
+{{run:generate:Generate Word!}}
+
+---
+
+And your new word is: {{outmd:output}}
+
+{{{{
+
+function pos(number) {
+	if (number < 0) return 0
+	else return number
+}
+
+function randomElement(arr){
+	return arr[Math.floor(Math.random() * arr.length)]
+}
+
+function generate({curpus = "", rand = "1"}, ret) {
+	rand = Number(rand)
+	let words =  curpus
+		.toLowerCase()
+		.split(/[^a-z]+/gi)
+		.map(e => "S" + e + "E") // Where "S" means start and "E" means end, words in "SthisE" format.
+	let nextChars = {} // {"substr": ["nextchar"]} format, where "nextchar"s aren't unique.
+	for(let word of words) {
+		for(let i = 0; i < word.length - 1; i++) {
+			let substr = word.slice(pos(i - rand), i + 1)
+			if(!(substr in nextChars)) nextChars[substr] = []
+			nextChars[substr].push(word[i + 1])
+		}
+	}
+
+	do {
+		var newWord = "S"
+		do {
+			newWord += randomElement(nextChars[newWord.slice(-1 - rand)])
+		}
+		while (newWord.slice(-1) != "E")	
+	}
+	while(words.includes(newWord) || newWord.length < 3)
+
+	ret("```" + newWord[1].toUpperCase() + newWord.slice(2, -1) + "```")
+}

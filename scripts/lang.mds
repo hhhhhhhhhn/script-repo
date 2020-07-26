@@ -1,0 +1,6 @@
+# List of language pages.
+
+[Word information](?lang/wordinfo): Extracts number of words and unique words
+from a text.
+
+[Word Generator](?/lang/wordgenerator): Generates new words based on corpus.

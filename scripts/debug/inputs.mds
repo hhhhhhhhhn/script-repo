@@ -1,0 +1,19 @@
+# Inputs
+
+The possible inputs are:
+
+- text: {{text:text:placeholder}}
+- shorttext: {{shorttext:shorttext:placeholder}}
+- options: {{options:options:Option 1, Option 2}}
+- checkbox: {{checkbox:checkbox}}
+
+{{run:run:Check Values!}}
+
+{{outmd:output}}
+
+Other debug pages [here](?debug)
+
+{{{{
+function run(inputs, ret){
+	ret(Object.values(inputs).map(e => String(e)).join(", "))
+}
