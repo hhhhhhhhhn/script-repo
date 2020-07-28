@@ -3,7 +3,7 @@ const FILE = `../scripts/${location.href.split("?")[1] || ""}.mds`
 //// MDS load
 function get(url) {
 	return new Promise((resolve, reject)=>{
-		fetch(url)
+		fetch(url, {cache: "no-cache"})
   			.then((response) => {
     			if (response.ok)
       				return response.text()
@@ -21,12 +21,12 @@ function get(url) {
 async function loadScipt(){
 	let script = await get(FILE) 
 		||"# Script Not Found\n## 404 Error"
-	return new mds.Script("mds", script, {bindings:{
+	mds.create("mds", script, {bindings:{
 		"log": console.log
 	}, outraw:true})
 }
 
-let script = loadScipt()
+loadScipt()
 
 //// Set navbar source
 document.addEventListener("DOMContentLoaded", ()=>{
