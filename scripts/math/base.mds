@@ -1,0 +1,43 @@
+# Base converter
+
+Number: {{shorttext:number:3E8}}
+
+From base {{shorttext:iBase:16}} to base {{shorttext:oBase:10}}
+
+{{run:convert:Go!}}
+
+{{outmd:output}}
+
+{{{{
+
+const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+let values = {} // "b": 11, for example. 
+let i = 0
+for(let char of chars){
+	values[char] = i
+	i++
+}
+
+let strings = {} // 11: "b", for example.
+for(let [key, value] of Object.entries(values)) strings[value] = key
+
+function convert({number="2", iBase="10", oBase="2"}, ret) {
+	number = number.toUpperCase()
+	iBase = Number(iBase)
+	oBase = Number(oBase)
+
+	let result = 0
+	let i = 0
+	for(let char of number.split("").reverse().join("")) {
+		result += values[char] * Math.pow(iBase, i)
+		i++
+	}
+	let output = ""
+	for (let i = 0; i < 10000; i++) { // in practice, a while loop
+		let rem = result % oBase
+		result = Math.floor(result / oBase)
+		output = strings[rem] + output
+		if(result == 0) ret(output)
+	}
+}
