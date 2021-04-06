@@ -16,7 +16,7 @@ PI as: {{shorttext:PI:1}}
 {{outmd:output}}
 
 {{{{
-function cone({R = "0", H = "0", r = "0", h = "0", PI="1"}) {
+function cone({R = "0", H = "0", r = "0", h = "0", PI="1"}, ret) {
 	R = Number(R)
 	H = Number(H)
 	r = Number(r)
