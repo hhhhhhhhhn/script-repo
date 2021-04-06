@@ -1,0 +1,54 @@
+# Sliced cone area/volume calculator
+
+radius: {{shorttext:R:0}}
+
+height: {{shorttext:H:19}}
+
+sliced radius: {{shorttext:r:1.5}}
+
+sliced height: {{shorttext:h:5}}
+
+PI as: {{shorttext:PI:1}}
+
+
+{{run:cone:Go!}}
+
+{{outmd:output}}
+
+{{{{
+function cone({R = "0", H = "0", r = "0", h = "0", PI="1"}) {
+	R = Number(R)
+	H = Number(H)
+	r = Number(r)
+	h = Number(h)
+	PI = Number(PI)
+
+	if (!R) {
+		R = (r * H) / h
+	}
+	if (!H) {
+		H = (h * R) / r
+	}
+	if (!r) {
+		r = (R * h) / H
+	}
+	if (!h) {
+		h = (H * r) / R
+	}
+
+	V = ((((PI * Math.pow(R, 2)) * (H + h)) / 3) - (((PI * Math.pow(r, 2)) * h) / 3))
+
+	L = Math.sqrt((Math.pow(R, 2) + Math.pow((H + h), 2)))
+	l = Math.sqrt((Math.pow(r, 2) + Math.pow(h, 2)))
+
+	AL = (((PI * R) * L) - ((PI * r) * l))
+	AB = ((PI * Math.pow(R, 2)) + (PI * Math.pow(r, 2)))
+	AT = (AL + AB)
+
+	ret(
+		`${R}, ${H}, ${r}, ${h}\n\n` +
+		`A lateral = ${AL}\n\n` +
+		`A base = ${AB}\n\n` +
+		`A total = ${AT}\n\n` +
+		`V = ${V}\n\n`)
+}
